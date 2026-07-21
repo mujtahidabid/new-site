@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Mujtahid Abid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+<!-- TOPBAR -->
+  <header class="topbar">
+    <a href="#top" class="wordmark">BLOG</a>
+    <div class="topbar-right">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="toggle-dot"></span>
+      </button>
+      <button id="menuBtn" class="menu-btn" aria-label="Open navigation" aria-expanded="false">
+        <span class="menu-btn-lines"><span></span><span></span><span></span></span>
+        <span class="menu-btn-label">MENU</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="watermark">B</div>
+    <div class="hero-inner">
+      <div class="hero-heading-row">
+        <h1 class="hero-heading">
+          <span class="reveal-wrap"><span class="reveal-letter" style="animation-delay:.05s">B</span></span><span
+          class="reveal-wrap"><span class="reveal-letter" style="animation-delay:.13s">L</span></span><span
+          class="reveal-wrap"><span class="reveal-letter" style="animation-delay:.21s">O</span></span><span
+          class="reveal-wrap"><span class="reveal-letter" style="animation-delay:.29s">G</span></span>
+        </h1>
+      </div>
+      <p class="hero-sub">Something about this, somethings about that...</p>
+    </div>
+  </section>
+
+  <!-- POST: BLOG-1 -->
+  <section class="post" id="blog-1">
+    <div class="post-eyebrow">Blog — 01</div>
+    <h2 class="post-title">Burning</h2>
+    <div class="post-meta">20 JUL 2026• FILM & PHILOSOPHY • 5 MIN READ</div>
+    <p class="post-excerpt">Some stories don't ask for your attention—they quietly take it. This is one of them. This isn't a conclusion or a summary—just the first step into something worth thinking about.
+    </p>
+    <a href="/blogs/blog-1/blog-1.html" class="post-read">Read post <span>→</span></a>
+  </section>
+
+  <!-- POST: BLOG-2 
+  <section class="post" id="blog-2">
+    <div class="post-eyebrow">Blog — 02</div>
+    <h2 class="post-title">Your Second Post Title</h2>
+    <div class="post-meta">DATE • CATEGORY • READ TIME</div>
+    <p class="post-excerpt">Same idea here — swap this excerpt for the real intro of your second post. Add more sections below following this exact pattern as you publish more.</p>
+    <a href="/blogs/preloader-blogs.html" class="post-read">Read post <span>→</span></a>
+  </section>
+-->
+  
+  <!--
+    TO ADD MORE POSTS:
+    1. Copy a <section class="post" id="blog-3"> block above, update id + content.
+    2. Copy a <li><a href="#blog-3" ...></a></li> inside .nav-list below, update href/index/text.
+  -->
+
+  <footer>
+    <a href="index.html" class="footer-back">← Back to Home</a>
+    <span class="footer-note">© Mujtahid Abid</span>
+  </footer>
+
+  <!-- FULLSCREEN NAV OVERLAY -->
+  <nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+    <div class="nav-overlay-top">
+      <span class="wordmark">BLOG</span>
+      <button id="closeBtn" class="menu-btn" aria-label="Close navigation">
+        <span class="menu-btn-lines" style="position:relative; width:18px; height:14px;">
+          <span style="position:absolute; top:6px; transform:rotate(45deg);"></span>
+          <span style="position:absolute; top:6px; transform:rotate(-45deg);"></span>
+        </span>
+        <span class="menu-btn-label">CLOSE</span>
+      </button>
+    </div>
+
+    <ul class="nav-list">
+      <li><a href="/blogs/blog-1/blog-1.html" class="nav-link nav-close"><span class="nav-index">01</span><span class="nav-text">Blog 1</span></a></li>
+      <li><a href="/blogs/preloader-blogs.html" class="nav-link nav-close"><span class="nav-index">02</span><span class="nav-text">Blog 2</span></a></li>
+
+      <!-- add new <li> entries here as you publish more posts -->
+    </ul>
+
+    <a href="index.html" class="back-home">
+      <span class="back-home-arrow">←</span>
+      <span>Back to Home</span>
+    </a>
+  </nav>
+
+<script src="blog.js"></script>
+
+</body>
+</html>
