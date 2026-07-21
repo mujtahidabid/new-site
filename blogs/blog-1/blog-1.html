@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog 1 — BURNING | Mujtahid Abid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+<base target="_blank">
+<!--CSS-Styling-->
+<style>
+  :root{
+    --paper:#f4f2ec;
+    --ink:#141311;
+    --ink-soft:rgba(20,19,17,0.58);
+    --ink-faint:rgba(20,19,17,0.35);
+    --line:rgba(20,19,17,0.14);
+    --watermark:rgba(20,19,17,0.055);
+    --invert-ink:#f4f2ec;
+    --overlay-bg:#141311;
+    --transition-theme: background-color .5s ease, color .5s ease, border-color .5s ease;
+  }
+  html[data-theme="dark"]{
+    --paper:#121110;
+    --ink:#f3f1ea;
+    --ink-soft:rgba(243,241,234,0.6);
+    --ink-faint:rgba(243,241,234,0.34);
+    --line:rgba(243,241,234,0.16);
+    --watermark:rgba(243,241,234,0.05);
+    --invert-ink:#121110;
+    --overlay-bg:#f3f1ea;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Archivo',sans-serif;
+    transition:var(--transition-theme);
+    overflow-x:hidden;
+  }
+  body.lock{overflow:hidden;}
+
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;margin:0;padding:0;}
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:60;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:28px 36px;
+    mix-blend-mode:normal;
+  }
+  .wordmark{
+    font-weight:800; font-size:15px; letter-spacing:.04em;
+    text-transform:uppercase;
+  }
+  .topbar-right{
+    display:flex; align-items:center; gap:14px;
+  }
+  .menu-btn{
+    display:flex; align-items:center; gap:12px;
+    background:transparent; cursor:pointer;
+    border:1.5px solid var(--ink); color:var(--ink);
+    border-radius:999px; padding:10px 22px 10px 18px;
+    font-family:inherit; font-weight:700; font-size:13px; letter-spacing:.08em;
+    transition:var(--transition-theme), transform .25s ease, background .25s ease, color .25s ease;
+  }
+  .menu-btn:hover{background:var(--ink); color:var(--paper);}
+  .menu-btn-lines{display:flex; flex-direction:column; gap:4px; width:18px;}
+  .menu-btn-lines span{display:block; height:2px; width:100%; background:currentColor; border-radius:2px; transition:transform .3s ease, opacity .3s ease;}
+
+  /* ---------- ARTICLE HERO ---------- */
+  .article-hero{
+    position:relative;
+    min-height:60vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:120px 36px 60px;
+    overflow:hidden;
+  }
+  .watermark{
+    position:absolute; top:-6vw; left:-3vw;
+    font-size:40vw; font-weight:900; line-height:1;
+    color:var(--watermark);
+    user-select:none; pointer-events:none;
+    transition:var(--transition-theme);
+  }
+  .article-hero-inner{ position:relative; z-index:2; max-width:1100px; margin:0 auto; width:100%; }
+
+  .article-eyebrow{
+    font-size:12px; letter-spacing:.2em; font-weight:800; color:var(--ink-faint);
+    text-transform:uppercase; margin-bottom:18px;
+  }
+  .article-title{
+    margin:0; font-weight:900; text-transform:uppercase;
+    font-size:clamp(3.4rem, 13vw, 10.5rem);
+    line-height:0.92; letter-spacing:-0.01em;
+  }
+  .reveal-wrap{display:inline-flex; overflow:hidden; vertical-align:top;}
+  .reveal-letter{
+    display:inline-block; transform:translateY(115%);
+    animation:revealUp .85s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  @keyframes revealUp{ to{ transform:translateY(0); } }
+
+  .theme-toggle{
+    flex:0 0 auto;
+    width:36px; height:36px; border-radius:50%;
+    border:1.5px solid var(--ink); background:transparent;
+    cursor:pointer; position:relative;
+    transition:var(--transition-theme), transform .3s ease;
+  }
+  .theme-toggle:hover{transform:rotate(20deg);}
+  .toggle-dot{
+    position:absolute; inset:9px;
+    border-radius:50%; background:var(--ink);
+    transition:var(--transition-theme);
+  }
+  html[data-theme="dark"] .toggle-dot{
+    background:transparent; border:1.5px solid var(--ink);
+    clip-path:circle(60% at 35% 50%);
+  }
+
+  .article-meta{
+    margin:28px 0 0; font-size:clamp(1rem,1.6vw,1.25rem);
+    color:var(--ink-soft); font-weight:500;
+    letter-spacing:.04em;
+  }
+
+  /* ---------- ARTICLE BODY ---------- */
+  .article-body{
+    max-width:780px;
+    margin:0 auto;
+    padding:0 36px 100px;
+  }
+
+  .article-figure{
+    margin:0 0 60px;
+    padding:0;
+  }
+  .article-image{
+    width:100%;
+    max-width:600px;
+    display:block;
+    margin:0 auto;
+    border-radius:8px;
+    filter: grayscale(20%) contrast(1.05);
+    transition: filter .4s ease;
+  }
+  .article-image:hover{
+    filter: grayscale(0%) contrast(1);
+  }
+  .article-figure figcaption{
+    text-align:center;
+    font-size:13px;
+    color:var(--ink-faint);
+    margin-top:16px;
+    font-weight:500;
+    letter-spacing:.02em;
+  }
+
+  .article-content p{
+    font-size:clamp(1.05rem,1.6vw,1.25rem);
+    line-height:1.75;
+    color:var(--ink-soft);
+    margin:0 0 28px;
+    font-weight:400;
+  }
+  .article-content p strong{
+    color:var(--ink);
+    font-weight:800;
+  }
+  .article-content p em{
+    font-style:italic;
+    color:var(--ink);
+  }
+
+  .article-standalone{
+    font-size:clamp(1.4rem,3vw,2rem) !important;
+    font-weight:700 !important;
+    color:var(--ink) !important;
+    text-align:center;
+    margin:48px 0 !important;
+    line-height:1.4 !important;
+    letter-spacing:-0.01em;
+  }
+
+  .article-content blockquote{
+    margin:48px 0;
+    padding:32px 36px;
+    border-left:3px solid var(--ink);
+    background:var(--watermark);
+    border-radius:0 8px 8px 0;
+  }
+  .article-content blockquote p{
+    margin:0;
+    font-size:clamp(1.15rem,2vw,1.4rem);
+    line-height:1.6;
+    color:var(--ink);
+    font-weight:600;
+  }
+
+  .article-closing{
+    margin-top:60px !important;
+    padding-top:40px;
+    border-top:1px solid var(--line);
+    font-size:14px !important;
+    font-weight:700 !important;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint) !important;
+    text-align:center;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line); padding:60px 36px 40px;
+    display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;
+  }
+  .footer-back{
+    font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:10px; border:1.5px solid var(--ink);
+    border-radius:999px; padding:12px 24px; transition:background .25s ease, color .25s ease;
+  }
+  .footer-back:hover{background:var(--ink); color:var(--paper);}
+  .footer-note{font-size:12px; color:var(--ink-faint); letter-spacing:.04em;}
+
+  /* ---------- FULLSCREEN NAV OVERLAY ---------- */
+  .nav-overlay{
+    position:fixed; inset:0; z-index:100;
+    background:var(--overlay-bg); color:var(--invert-ink);
+    display:flex; flex-direction:column;
+    padding:28px 36px 50px;
+    height:100dvh;
+    overflow:hidden;
+    clip-path:circle(0% at calc(100% - 70px) 56px);
+    transition:clip-path .75s cubic-bezier(.65,0,.35,1), background-color .5s ease, color .5s ease;
+    pointer-events:none;
+  }
+  .nav-overlay.open{
+    clip-path:circle(150% at calc(100% - 70px) 56px);
+    pointer-events:auto;
+  }
+  .nav-overlay-top{
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-overlay .wordmark{color:var(--invert-ink);}
+  .nav-overlay .menu-btn{border-color:var(--invert-ink); color:var(--invert-ink);}
+  .nav-overlay .menu-btn:hover{background:var(--invert-ink); color:var(--overlay-bg);}
+
+  .nav-list{
+    flex:1; display:flex; flex-direction:column;
+    justify-content:flex-start;
+    justify-content:safe center;
+    gap:6px; padding:40px 0;
+    overflow-y:auto;
+    min-height:0;
+    scrollbar-width:none;
+  }
+  .nav-list::-webkit-scrollbar{ display:none; }
+  .nav-link{
+    display:flex; align-items:baseline; gap:24px;
+    font-size:clamp(2.6rem,7vw,5.4rem); font-weight:900; text-transform:uppercase;
+    line-height:1.08; opacity:0; transform:translateY(40px);
+    transition:opacity .55s ease, transform .55s ease, color .3s ease;
+  }
+  .nav-overlay.open .nav-link{opacity:1; transform:translateY(0);}
+  .nav-overlay.open .nav-link:nth-child(1){transition-delay:.12s;}
+  .nav-overlay.open .nav-link:nth-child(2){transition-delay:.2s;}
+  .nav-overlay.open .nav-link:nth-child(3){transition-delay:.28s;}
+  .nav-overlay.open .nav-link:nth-child(4){transition-delay:.36s;}
+  .nav-overlay.open .nav-link:nth-child(5){transition-delay:.44s;}
+  .nav-index{
+    font-size:14px; font-weight:700; letter-spacing:.05em;
+    color:var(--invert-ink); opacity:.45; align-self:flex-start; margin-top:18px;
+  }
+  .nav-link:hover .nav-text{opacity:.55;}
+  .nav-text{transition:opacity .25s ease;}
+
+  .back-home{
+    align-self:flex-start;
+    display:inline-flex; align-items:center; gap:12px;
+    border:1.5px solid var(--invert-ink); border-radius:999px;
+    padding:14px 26px; font-weight:700; font-size:13px; letter-spacing:.08em; text-transform:uppercase;
+    opacity:0; transform:translateY(20px);
+    transition:opacity .5s ease .5s, transform .5s ease .5s, background .25s ease, color .25s ease;
+  }
+  .nav-overlay.open .back-home{opacity:1; transform:translateY(0);}
+  .back-home:hover{background:var(--invert-ink); color:var(--overlay-bg);}
+  .back-home-arrow{font-size:16px;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:720px){
+    .topbar{padding:20px;}
+    .topbar-right{gap:8px;}
+    .article-hero{padding:100px 20px 40px; min-height:45vh;}
+    .theme-toggle{width:32px; height:32px;}
+    .toggle-dot{inset:8px;}
+    .menu-btn-label{display:none;}
+    .menu-btn{padding:12px;}
+    .article-body{padding:0 20px 60px;}
+    .article-figure{margin-bottom:40px;}
+    .article-content blockquote{padding:24px 20px;}
+    .article-standalone{margin:36px 0 !important;}
+    .nav-overlay{padding:20px 20px 36px; clip-path:circle(0% at calc(100% - 50px) 46px);}
+    .nav-overlay.open{clip-path:circle(150% at calc(100% - 50px) 46px);}
+    .nav-list{gap:14px; padding:30px 0; overflow-y:auto; min-height:0; justify-content:flex-start; justify-content:safe center;}
+    .nav-index{display:none;}
+    footer{padding:44px 20px 32px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+    .reveal-letter{transform:none; opacity:1;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+
+
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="blog.html" class="wordmark">BLOG</a>
+  <div class="topbar-right">
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+      <span class="toggle-dot"></span>
+    </button>
+    <button id="menuBtn" class="menu-btn" aria-label="Open navigation" aria-expanded="false">
+      <span class="menu-btn-lines"><span></span><span></span><span></span></span>
+      <span class="menu-btn-label">MENU</span>
+    </button>
+  </div>
+</header>
+
+<!-- ARTICLE HERO -->
+<section class="article-hero" id="top">
+  <div class="watermark">PF01</div>
+  <div class="article-hero-inner">
+    <div class="article-eyebrow">Blog — 01</div>
+    <h1 class="article-title">
+      <span class="reveal-wrap"><span class="reveal-letter" style="animation-delay:.05s">B</span></span><span
+      class="reveal-wrap"><span class="reveal-letter" style="animation-delay:.13s">U</span></span><span
+      class="reveal-wrap"><span class="reveal-letter" style="animation-delay:.21s">R</span></span><span
+      class="reveal-wrap"><span class="reveal-letter" style="animation-delay:.29s">N</span></span><span
+      class="reveal-wrap"><span class="reveal-letter" style="animation-delay:.37s">I</span></span><span
+      class="reveal-wrap"><span class="reveal-letter" style="animation-delay:.45s">N</span></span><span
+      class="reveal-wrap"><span class="reveal-letter" style="animation-delay:.53s">G</span></span>
+    </h1>
+    <div class="article-meta">20 JUL 2026 &nbsp;•&nbsp; FILM & PHILOSOPHY &nbsp;•&nbsp; 5 MIN READ</div>
+  </div>
+</section>
+
+<!-- ARTICLE BODY -->
+<article class="article-body">
+
+  <div class="article-content">
+    <p><strong>Burning</strong> is one of those words whose meaning extends far beyond fire. We instinctively associate it with flames—a chemical reaction that consumes matter until nothing remains but ash. It is visible destruction. Yet the most profound forms of burning are invisible.</p>
+
+    <p class="article-standalone">Human beings burn every day.</p>
+
+    <p>We burn with obsession when our thoughts refuse to leave a single person or idea. We burn with jealousy when another's success feels like a reminder of our own inadequacy. We burn with anger after failing, and with ambition when the future we imagine seems just beyond our reach. The heart, though untouched by fire, experiences its own combustion.</p>
+
+    <p>Unlike physical fire, psychological burning leaves no smoke. It slowly feeds on memory, desire, fear, and uncertainty. The more we try to suppress it, the more intensely it smolders beneath the surface. A single unanswered question can become enough fuel to keep the mind burning for years.</p>
+    
+  <!-- Featured Image -->
+
+      <figure class="article-figure">
+    <img src="burning(2018).jpg" alt="Burning (2018) official poster by Lee Chang-dong" class="article-image">
+    <figcaption>Official poster — <em>Burning</em> (2018) by Lee Chang-dong</figcaption>
+  </figure>
+
+    <p>Perhaps that is why <em>Burning</em> (2018), the movie resonates so deeply. The film uses fire not merely as an object but as a state of mind. It explores the unbearable feeling of sensing that something is terribly wrong while possessing no proof. Suspicion begins to replace certainty. Reality and imagination cease to be separate worlds and instead merge into one unsettling landscape. The audience is forced to burn alongside the protagonist, searching for truth that may never fully reveal itself.</p>
+
+    <blockquote>
+      <p>This raises a philosophical question: <strong>does truth matter as much as belief?</strong></p>
+    </blockquote>
+
+    <p>If the mind becomes convinced of something, does the absence of evidence lessen the emotional fire? Or does uncertainty itself become the fuel?</p>
+
+    <p>Historically, people rarely act when certainty is present. They act because of what they believe, what they fear, and what they cannot let go of. Revolutions have begun with ideas. Wars have started over stories people chose to believe. Long before actions become visible, they exist as bells without a alarm within the human mind.</p>
+
+    <p>That may be the most unsettling meaning of burning. Fire does not always destroy from the outside. Sometimes it consumes us from within, slowly reshaping perception until obsession feels like reason and illusion feels indistinguishable from reality.</p>
+
+    <p class="article-standalone">Perhaps the question has never been whether we burn.</p>
+
+    <p class="article-standalone">The question is whether our fire illuminates the truth—or merely casts shadows that we mistake for it.</p>
+
+    <p class="article-closing">AT LAST <em>BURNING</em> (2018) inspired me to write this... 
+        <br><br>PEACE!</p>
+  </div>
+
+</article>
+
+<!-- FOOTER -->
+<footer>
+  <a href="/blog.html" class="footer-back">← Back to Home</a>
+  <span class="footer-note">© Mujtahid Abid</span>
+</footer>
+
+<!-- FULLSCREEN NAV OVERLAY -->
+<nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+  <div class="nav-overlay-top">
+    <span class="wordmark">BLOG</span>
+    <button id="closeBtn" class="menu-btn" aria-label="Close navigation">
+      <span class="menu-btn-lines" style="position:relative; width:18px; height:14px;">
+        <span style="position:absolute; top:6px; transform:rotate(45deg);"></span>
+        <span style="position:absolute; top:6px; transform:rotate(-45deg);"></span>
+      </span>
+      <span class="menu-btn-label">CLOSE</span>
+    </button>
+  </div>
+
+  <ul class="nav-list">
+    <li><a href="blog-1.html" class="nav-link nav-close"><span class="nav-index">01</span><span class="nav-text">BLOG-01</span></a></li>
+    <li><a href="/blogs/preloader-blogs.html" class="nav-link nav-close"><span class="nav-index">02</span><span class="nav-text">BLOG-02</span></a></li>
+  </ul>
+  <a href="/blog.html" class="back-home">
+    <span class="back-home-arrow">←</span>
+    <span>Back to Home</span>
+  </a>
+</nav>
+
+<!--Script-->
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const navOverlay = document.getElementById('navOverlay');
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+function openNav(){
+  navOverlay.classList.add('open');
+  navOverlay.setAttribute('aria-hidden','false');
+  menuBtn.setAttribute('aria-expanded','true');
+  body.classList.add('lock');
+}
+function closeNav(){
+  navOverlay.classList.remove('open');
+  navOverlay.setAttribute('aria-hidden','true');
+  menuBtn.setAttribute('aria-expanded','false');
+  body.classList.remove('lock');
+}
+
+menuBtn.addEventListener('click', openNav);
+closeBtn.addEventListener('click', closeNav);
+
+document.querySelectorAll('.nav-close').forEach(link=>{
+  link.addEventListener('click', closeNav);
+});
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape') closeNav();
+});
+
+themeToggle.addEventListener('click', ()=>{
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+});
+</script>
+
+</body>
+</html>
