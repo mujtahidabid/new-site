@@ -3,11 +3,18 @@
     --paper:#F5F3EE;
     --line: rgba(17,17,16,0.14);
     --muted:#7a776f;
+    --dot: #00000037;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{background:var(--paper);}
+  html{
+    background-color:var(--paper);
+    background-image:radial-gradient(circle, var(--dot) 1px, transparent 1px);
+    background-size:22px 22px;
+  }
   body{
-    background:var(--paper);
+    background-color:var(--paper);
+    background-image:radial-gradient(circle, var(--dot) 1px, transparent 1px);
+    background-size:22px 22px;
     color:var(--ink);
     font-family:'Inter',sans-serif;
     overflow-x:hidden;
@@ -155,7 +162,9 @@
   /* ---------- work section ---------- */
   .work{
     position:relative;
-    background:var(--paper);
+    background-color:var(--paper);
+    background-image:radial-gradient(circle, var(--dot) 1px, transparent 1px);
+    background-size:22px 22px;
     padding:6rem clamp(1.2rem,5vw,4rem) 8rem;
   }
   .work-head{
