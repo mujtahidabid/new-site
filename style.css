@@ -3,7 +3,7 @@
     --paper:#F5F3EE;
     --line: rgba(17,17,16,0.14);
     --muted:#7a776f;
-    --dot: #00000037;
+    --dot: rgba(20,19,17,0.13);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{
